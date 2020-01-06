@@ -7,7 +7,7 @@ of a simple screen that lists the most popular movies. For each movie we can see
 2. Poster Image
 3. Release Date
 4. Voting Average Score (as a percentage)
-5. Flag marking it as a personal favourite
+5. Personal favourite flag
 
 The personal favourite flag is only implemented locally.
 
