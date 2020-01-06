@@ -13,8 +13,8 @@ The personal favourite flag is only implemented locally.
 
 There are 2 implementations of this application:
 
-1. MovieListRx: Uses RxJava2 to manage the TMDb and internal cache operations
-2. MovieListCR: Uses Kotlin Coroutines to manage the TMDb and internal cache operations
+1. **MovieListRx**: Uses RxJava2 to manage the TMDb and internal cache operations
+2. **MovieListCR**: Uses Kotlin Coroutines to manage the TMDb and internal cache operations
 
 ### Use
 
@@ -46,7 +46,7 @@ LiveData is used for the MVVM implementation, in conjunction with Retrofit2
 utilised for server communication. The Room database is used for caching
 and local persistence purposes and Koin for dependency injection. The server and
 cache operations are orchestrated using either RxJava2 or Kotlin Coroutines (the
-former in the MovieListRx project and the latter in the MovieListCR one).
+former in the **MovieListRx** project and the latter in the **MovieListCR** one).
 
 #### Future Tasks
 
