@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieList</string>
+    <string name="app_name">MovieListRx</string>
 
     <string name="headerMainText">Popular TMDb Movies</string>
     <string name="headerFieldsText">with release date and user score</string>
