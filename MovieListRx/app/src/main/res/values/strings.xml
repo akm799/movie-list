@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MovieList</string>
+
+    <string name="headerMainText">Popular TMDb Movies</string>
+    <string name="headerFieldsText">with release date and user score</string>
+    <string name="headerMarkerText">and favourites marker check box</string>
+
+    <string name="posterImageDescription">Poster Image</string>
+    <string name="percentageText">%d%%</string>
+
+    <string name="full_error">%1$s\n%2$s</string>
+
+    <string name="init_movies_error">Error while fetching the movies.</string>
+    <string name="more_movies_error">Error while fetching more movies.</string>
+    <string name="favourite_movie_error">Error while updating your favourites choice.</string>
+
+    <string name="forbidden_error">Access error: has your token expired?</string>
+    <string name="network_error">Network error: please check your network connection.</string>
+    <string name="timeout_error">Timeout error: the server is taking to long to respond.</string>
+    <string name="server_error">Server error: internal server error.</string>
+    <string name="unknown_error">Unknown error.</string>
+
+</resources>
