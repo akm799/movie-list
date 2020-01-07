@@ -11,10 +11,12 @@ of a simple screen that lists the most popular movies. For each movie we can see
 
 The personal favourite flag is only implemented locally.
 
-There are 2 implementations of this application:
+There are two implementations of this application:
 
 1. **MovieListRx**: Uses RxJava2 to manage the TMDb and internal cache operations
 2. **MovieListCR**: Uses Kotlin Coroutines to manage the TMDb and internal cache operations
+
+Other than the use of RxJava2 versus Kotlin Coroutines, the two applications are identical and should behave in an identical manner.
 
 ### Use
 
