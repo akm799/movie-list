@@ -4,5 +4,5 @@ import com.akm.test.movielist.domain.model.Movie
 
 interface MovieRepository {
 
-    fun getMovies(page: Int): List<Movie>
+    suspend fun getMovies(page: Int): List<Movie>
 }

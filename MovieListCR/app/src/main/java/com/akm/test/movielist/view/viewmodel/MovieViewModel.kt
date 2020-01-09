@@ -58,12 +58,12 @@ class MovieViewModel(
         return liveData
     }
 
-    private suspend fun <T> ioThread(f: () -> T): CallResult<T> {
+    private suspend fun <T> ioThread(f: suspend () -> T): CallResult<T> {
         return withContext(dispatcherProvider.io()) {
             try {
                 CallResult(f.invoke())
-            } catch (e: Exception) {
-                CallResult<T>(e)
+            } catch (t: Throwable) {
+                CallResult<T>(t)
             }
         }
     }

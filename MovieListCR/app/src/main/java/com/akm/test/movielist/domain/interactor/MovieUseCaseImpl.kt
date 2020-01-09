@@ -18,7 +18,7 @@ class MovieUseCaseImpl(
         const val LAST_PAGE = 500
     }
 
-    override fun readOrFetchMovies(context: Context): List<Movie> {
+    override suspend fun readOrFetchMovies(context: Context): List<Movie> {
         val cache = factory.movieCache(context)
 
         return if (cache.hasMovies()) {
@@ -28,14 +28,14 @@ class MovieUseCaseImpl(
         }
     }
 
-    override fun fetchMoreMovies(context: Context): List<Movie> {
+    override suspend fun fetchMoreMovies(context: Context): List<Movie> {
         val cache = factory.movieCache(context)
         val lastPage = cache.getLastMoviePage()
 
         return fetchAndCacheMovies(cache, lastPage + 1)
     }
 
-    private fun fetchAndCacheMovies(cache: MovieCache, page: Int): List<Movie> {
+    private suspend fun fetchAndCacheMovies(cache: MovieCache, page: Int): List<Movie> {
         if (page > LAST_PAGE) {
             return emptyList()
         }
@@ -43,7 +43,7 @@ class MovieUseCaseImpl(
         return repository.getMovies(page).also { cache.cacheMovies(page, it) }
     }
 
-    override fun toggleFavourite(context: Context, movieRow: MovieRow): Pair<Int, Boolean> {
+    override suspend fun toggleFavourite(context: Context, movieRow: MovieRow): Pair<Int, Boolean> {
         return factory.movieCache(context).toggleFavourite(movieRow)
     }
 }

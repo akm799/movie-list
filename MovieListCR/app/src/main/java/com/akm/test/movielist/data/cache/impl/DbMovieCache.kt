@@ -9,21 +9,21 @@ import java.util.*
 
 class DbMovieCache(private val db: MovieDatabase) : MovieCache {
 
-    override fun hasMovies(): Boolean = db.movieDao().getMovieCount() > 0
+    override suspend fun hasMovies(): Boolean = db.movieDao().getMovieCount() > 0
 
-    override fun getLastMoviePage(): Int = db.movieDao().getMaxMoviePage()
+    override suspend fun getLastMoviePage(): Int = db.movieDao().getMaxMoviePage()
 
-    override fun getMovies(): List<Movie> {
+    override suspend fun getMovies(): List<Movie> {
         return db.movieDao().getAllMovies().map { it.toMovie() }
     }
 
-    override fun cacheMovies(page: Int, movies: List<Movie>) {
+    override suspend fun cacheMovies(page: Int, movies: List<Movie>) {
         val entries = movies.mapIndexed { index, movie -> movie.toEntry(page, index) }
 
         db.movieDao().insertMovies(entries)
     }
 
-    override fun toggleFavourite(movieRow: MovieRow): Pair<Int, Boolean> {
+    override suspend fun toggleFavourite(movieRow: MovieRow): Pair<Int, Boolean> {
         val movie = movieRow.movie
 
         val updateCount = db.movieDao().updateFavourite(movie.id, movie.favourite.not())

@@ -15,7 +15,7 @@ class RemoteMovieRepository(private val service: MovieService) : MovieRepository
         const val POSTER_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200"
     }
 
-    override fun getMovies(page: Int): List<Movie> {
+    override suspend fun getMovies(page: Int): List<Movie> {
         val response = service.getMovies(page).execute()
         if (response.isSuccessful) {
             return response.body()?.results?.map(::toMovie) ?: emptyList()
