@@ -1,6 +1,5 @@
 package com.akm.test.movielist.view.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.akm.test.movielist.domain.interactor.MovieUseCase
@@ -25,16 +24,16 @@ class MovieViewModel(
     private val liveDataProvider: LiveDataProvider = DefaultLiveDataProvider()
 ) : ViewModel() {
 
-    fun readOrFetchMovies(context: Context): LiveData<CallResult<List<Movie>>> {
-        return liveData { useCase.readOrFetchMovies(context) }
+    fun readOrFetchMovies(): LiveData<CallResult<List<Movie>>> {
+        return liveData { useCase.readOrFetchMovies() }
     }
 
-    fun fetchMoreMovies(context: Context): LiveData<CallResult<List<Movie>>> {
-        return liveData { useCase.fetchMoreMovies(context) }
+    fun fetchMoreMovies(): LiveData<CallResult<List<Movie>>> {
+        return liveData { useCase.fetchMoreMovies() }
     }
 
-    fun toggleFavourite(context: Context, movieRow: MovieRow): LiveData<CallResult<Pair<Int, Boolean>>> {
-        return liveData { useCase.toggleFavourite(context, movieRow) }
+    fun toggleFavourite(movieRow: MovieRow): LiveData<CallResult<Pair<Int, Boolean>>> {
+        return liveData { useCase.toggleFavourite(movieRow) }
     }
 
     private fun <T> liveData(getData: () -> Single<T>): LiveData<CallResult<T>> {

@@ -13,6 +13,8 @@ import com.akm.test.movielist.view.viewmodel.MovieViewModel
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -32,7 +34,7 @@ val appModule = module {
 
     single<MovieRepository> { RemoteMovieRepository(get()) }
 
-    single<MovieCacheFactory> { DbMovieCacheFactory() }
+    single<MovieCacheFactory> { DbMovieCacheFactory(androidApplication()) }
 
     single<MovieUseCase> { MovieUseCaseImpl(get(), get()) }
 

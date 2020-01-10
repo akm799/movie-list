@@ -1,6 +1,5 @@
 package com.akm.test.movielist.domain.interactor
 
-import android.content.Context
 import com.akm.test.movielist.data.cache.MovieCache
 import com.akm.test.movielist.data.cache.MovieCacheFactory
 import com.akm.test.movielist.data.repository.MovieRepository
@@ -19,8 +18,8 @@ class MovieUseCaseImpl(
         const val LAST_PAGE = 500
     }
 
-    override fun readOrFetchMovies(context: Context): Single<List<Movie>> {
-        val cache = factory.movieCache(context)
+    override fun readOrFetchMovies(): Single<List<Movie>> {
+        val cache = factory.movieCache()
 
         val movieCheck: () -> Single<Boolean> = { cache.hasMovies() }
 
@@ -35,8 +34,8 @@ class MovieUseCaseImpl(
         return movieCheck.invoke().flatMap(getMovies)
     }
 
-    override fun fetchMoreMovies(context: Context): Single<List<Movie>> {
-        val cache = factory.movieCache(context)
+    override fun fetchMoreMovies(): Single<List<Movie>> {
+        val cache = factory.movieCache()
 
         val currentPage: () -> Single<Int> = { cache.getLastMoviePage() }
 
@@ -58,7 +57,7 @@ class MovieUseCaseImpl(
         }
     }
 
-    override fun toggleFavourite(context: Context, movieRow: MovieRow): Single<Pair<Int, Boolean>> {
-        return factory.movieCache(context).toggleFavourite(movieRow)
+    override fun toggleFavourite(movieRow: MovieRow): Single<Pair<Int, Boolean>> {
+        return factory.movieCache().toggleFavourite(movieRow)
     }
 }

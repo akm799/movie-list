@@ -1,6 +1,5 @@
 package com.akm.test.movielist.view.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.akm.test.movielist.domain.interactor.MovieUseCase
 import com.akm.test.movielist.domain.model.Movie
@@ -20,11 +19,10 @@ class MovieViewModelTest {
 
     @Test
     fun shouldSetReadOrFetchedMovieData() {
-        val context = Mockito.mock(Context::class.java)
         val movies = emptyList<Movie>()
         val moviesSingle = Single.just(movies)
         val useCase = Mockito.mock(MovieUseCase::class.java)
-        Mockito.`when`(useCase.readOrFetchMovies(context)).thenReturn(moviesSingle)
+        Mockito.`when`(useCase.readOrFetchMovies()).thenReturn(moviesSingle)
 
         val io = TestScheduler()
         val ui = TestScheduler()
@@ -36,7 +34,7 @@ class MovieViewModelTest {
         )
         Assert.assertNotNull(underTest)
 
-        val liveData = underTest.readOrFetchMovies(context)
+        val liveData = underTest.readOrFetchMovies()
         io.triggerActions()
         ui.triggerActions()
         Assert.assertEquals(mockLiveData, liveData)
@@ -45,11 +43,10 @@ class MovieViewModelTest {
 
     @Test
     fun shouldSetMoreMovieData() {
-        val context = Mockito.mock(Context::class.java)
         val movies = emptyList<Movie>()
         val moviesSingle = Single.just(movies)
         val useCase = Mockito.mock(MovieUseCase::class.java)
-        Mockito.`when`(useCase.fetchMoreMovies(context)).thenReturn(moviesSingle)
+        Mockito.`when`(useCase.fetchMoreMovies()).thenReturn(moviesSingle)
 
         val io = TestScheduler()
         val ui = TestScheduler()
@@ -61,7 +58,7 @@ class MovieViewModelTest {
         )
         Assert.assertNotNull(underTest)
 
-        val liveData = underTest.fetchMoreMovies(context)
+        val liveData = underTest.fetchMoreMovies()
         io.triggerActions()
         ui.triggerActions()
         Assert.assertEquals(mockLiveData, liveData)
@@ -70,14 +67,13 @@ class MovieViewModelTest {
 
     @Test
     fun shouldSetFavouriteFlagToggleData() {
-        val context = Mockito.mock(Context::class.java)
         val position = 42
         val favouriteFlag = true
         val movie = Movie(37, "Start Wars", 95, Date(), "poster.jpg")
         val movieRow = MovieRow(movie, position)
         val toggleSingle = Single.just(Pair(position, favouriteFlag))
         val useCase = Mockito.mock(MovieUseCase::class.java)
-        Mockito.`when`(useCase.toggleFavourite(context, movieRow)).thenReturn(toggleSingle)
+        Mockito.`when`(useCase.toggleFavourite(movieRow)).thenReturn(toggleSingle)
 
         val io = TestScheduler()
         val ui = TestScheduler()
@@ -89,7 +85,7 @@ class MovieViewModelTest {
         )
         Assert.assertNotNull(underTest)
 
-        val liveData = underTest.toggleFavourite(context, movieRow)
+        val liveData = underTest.toggleFavourite(movieRow)
         io.triggerActions()
         ui.triggerActions()
         Assert.assertEquals(mockLiveData, liveData)
