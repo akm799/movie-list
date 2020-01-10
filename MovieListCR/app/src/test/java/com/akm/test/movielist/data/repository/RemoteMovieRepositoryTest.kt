@@ -3,6 +3,7 @@ package com.akm.test.movielist.data.repository
 import com.akm.test.movielist.data.api.model.GetMoviesResponse
 import com.akm.test.movielist.data.api.model.MovieEntity
 import com.akm.test.movielist.data.api.service.MovieService
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
@@ -14,7 +15,7 @@ import java.util.*
 class RemoteMovieRepositoryTest {
 
     @Test
-    fun shouldGetMovies() {
+    fun shouldGetMovies() = runBlocking {
         val page = 1
 
         val voteAveragePercentage = 92

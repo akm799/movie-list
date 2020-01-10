@@ -1,6 +1,5 @@
 package com.akm.test.movielist.view.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.akm.test.movielist.domain.interactor.MovieUseCase
 import com.akm.test.movielist.domain.model.Movie
@@ -9,6 +8,7 @@ import com.akm.test.movielist.view.viewmodel.util.CallResult
 import com.akm.test.movielist.view.viewmodel.util.CallResultArgumentMatcher
 import com.akm.test.movielist.view.viewmodel.util.TestDispatcherProvider
 import com.akm.test.movielist.view.viewmodel.util.TestLiveDataProvider
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
@@ -17,7 +17,7 @@ import java.util.*
 class MovieViewModelTest {
 
     @Test
-    fun shouldSetReadOrFetchedMovieData() {
+    fun shouldSetReadOrFetchedMovieData() = runBlocking {
         val movies = emptyList<Movie>()
         val useCase = Mockito.mock(MovieUseCase::class.java)
         Mockito.`when`(useCase.readOrFetchMovies()).thenReturn(movies)
@@ -36,7 +36,7 @@ class MovieViewModelTest {
     }
 
     @Test
-    fun shouldSetMoreMovieData() {
+    fun shouldSetMoreMovieData() = runBlocking {
         val movies = emptyList<Movie>()
         val useCase = Mockito.mock(MovieUseCase::class.java)
         Mockito.`when`(useCase.fetchMoreMovies()).thenReturn(movies)
@@ -55,7 +55,7 @@ class MovieViewModelTest {
     }
 
     @Test
-    fun shouldSetFavouriteFlagToggleData() {
+    fun shouldSetFavouriteFlagToggleData() = runBlocking {
         val position = 42
         val favouriteFlag = true
         val movie = Movie(37, "Start Wars", 95, Date(), "poster.jpg")
