@@ -1,6 +1,5 @@
 package com.akm.test.movielist.domain.interactor
 
-import android.content.Context
 import com.akm.test.movielist.data.cache.MovieCache
 import com.akm.test.movielist.data.cache.MovieCacheFactory
 import com.akm.test.movielist.data.repository.MovieRepository
@@ -18,8 +17,8 @@ class MovieUseCaseImpl(
         const val LAST_PAGE = 500
     }
 
-    override suspend fun readOrFetchMovies(context: Context): List<Movie> {
-        val cache = factory.movieCache(context)
+    override suspend fun readOrFetchMovies(): List<Movie> {
+        val cache = factory.movieCache()
 
         return if (cache.hasMovies()) {
             cache.getMovies()
@@ -28,8 +27,8 @@ class MovieUseCaseImpl(
         }
     }
 
-    override suspend fun fetchMoreMovies(context: Context): List<Movie> {
-        val cache = factory.movieCache(context)
+    override suspend fun fetchMoreMovies(): List<Movie> {
+        val cache = factory.movieCache()
         val lastPage = cache.getLastMoviePage()
 
         return fetchAndCacheMovies(cache, lastPage + 1)
@@ -43,7 +42,7 @@ class MovieUseCaseImpl(
         return repository.getMovies(page).also { cache.cacheMovies(page, it) }
     }
 
-    override suspend fun toggleFavourite(context: Context, movieRow: MovieRow): Pair<Int, Boolean> {
-        return factory.movieCache(context).toggleFavourite(movieRow)
+    override suspend fun toggleFavourite(movieRow: MovieRow): Pair<Int, Boolean> {
+        return factory.movieCache().toggleFavourite(movieRow)
     }
 }

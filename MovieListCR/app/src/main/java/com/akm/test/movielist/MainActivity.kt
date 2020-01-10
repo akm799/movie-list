@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), MovieView, ListEndListener {
         listEndDetector.setListEndListener(this)
 
         showProgress()
-        observer.readOrFetchMovies(this)
+        observer.readOrFetchMovies()
     }
 
     override fun onPause() {
@@ -85,11 +85,11 @@ class MainActivity : AppCompatActivity(), MovieView, ListEndListener {
 
     override fun onListEndReached() {
         showProgress()
-        observer.fetchMoreMovies(this)
+        observer.fetchMoreMovies()
     }
 
     override fun toggleFavourite(movieRow: MovieRow) {
-        observer.toggleFavourite(this, movieRow)
+        observer.toggleFavourite(movieRow)
     }
 
     override fun onFavouriteChanged(position: Int, numberOfFavourites: Int) {

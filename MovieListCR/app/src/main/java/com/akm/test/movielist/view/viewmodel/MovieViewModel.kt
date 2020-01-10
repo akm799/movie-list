@@ -1,6 +1,5 @@
 package com.akm.test.movielist.view.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.akm.test.movielist.domain.interactor.MovieUseCase
@@ -25,21 +24,21 @@ class MovieViewModel(
 ) : ViewModel() {
     private var runningJob: Job? = null
 
-    fun readOrFetchMovies(context: Context): LiveData<CallResult<List<Movie>>> {
+    fun readOrFetchMovies(): LiveData<CallResult<List<Movie>>> {
         return liveData {
-            ioThread { useCase.readOrFetchMovies(context) }
+            ioThread { useCase.readOrFetchMovies() }
         }
     }
 
-    fun fetchMoreMovies(context: Context): LiveData<CallResult<List<Movie>>> {
+    fun fetchMoreMovies(): LiveData<CallResult<List<Movie>>> {
         return liveData {
-            ioThread { useCase.fetchMoreMovies(context) }
+            ioThread { useCase.fetchMoreMovies() }
         }
     }
 
-    fun toggleFavourite(context: Context, movieRow: MovieRow): LiveData<CallResult<Pair<Int, Boolean>>> {
+    fun toggleFavourite(movieRow: MovieRow): LiveData<CallResult<Pair<Int, Boolean>>> {
         return liveData {
-            ioThread { useCase.toggleFavourite(context, movieRow) }
+            ioThread { useCase.toggleFavourite(movieRow) }
         }
     }
 

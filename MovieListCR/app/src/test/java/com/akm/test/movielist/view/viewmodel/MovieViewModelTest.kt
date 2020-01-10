@@ -18,10 +18,9 @@ class MovieViewModelTest {
 
     @Test
     fun shouldSetReadOrFetchedMovieData() {
-        val context = Mockito.mock(Context::class.java)
         val movies = emptyList<Movie>()
         val useCase = Mockito.mock(MovieUseCase::class.java)
-        Mockito.`when`(useCase.readOrFetchMovies(context)).thenReturn(movies)
+        Mockito.`when`(useCase.readOrFetchMovies()).thenReturn(movies)
 
         val mockLiveData = Mockito.mock(MutableLiveData::class.java) as MutableLiveData<CallResult<List<Movie>>>
 
@@ -31,17 +30,16 @@ class MovieViewModelTest {
         )
         Assert.assertNotNull(underTest)
 
-        val liveData = underTest.readOrFetchMovies(context)
+        val liveData = underTest.readOrFetchMovies()
         Assert.assertEquals(mockLiveData, liveData)
         Mockito.verify(mockLiveData).setValue(Mockito.argThat(MovieListArgumentMatcher(movies)))
     }
 
     @Test
     fun shouldSetMoreMovieData() {
-        val context = Mockito.mock(Context::class.java)
         val movies = emptyList<Movie>()
         val useCase = Mockito.mock(MovieUseCase::class.java)
-        Mockito.`when`(useCase.fetchMoreMovies(context)).thenReturn(movies)
+        Mockito.`when`(useCase.fetchMoreMovies()).thenReturn(movies)
 
         val mockLiveData = Mockito.mock(MutableLiveData::class.java) as MutableLiveData<CallResult<List<Movie>>>
 
@@ -51,20 +49,19 @@ class MovieViewModelTest {
         )
         Assert.assertNotNull(underTest)
 
-        val liveData = underTest.fetchMoreMovies(context)
+        val liveData = underTest.fetchMoreMovies()
         Assert.assertEquals(mockLiveData, liveData)
         Mockito.verify(mockLiveData).setValue(Mockito.argThat(MovieListArgumentMatcher(movies)))
     }
 
     @Test
     fun shouldSetFavouriteFlagToggleData() {
-        val context = Mockito.mock(Context::class.java)
         val position = 42
         val favouriteFlag = true
         val movie = Movie(37, "Start Wars", 95, Date(), "poster.jpg")
         val movieRow = MovieRow(movie, position)
         val useCase = Mockito.mock(MovieUseCase::class.java)
-        Mockito.`when`(useCase.toggleFavourite(context, movieRow)).thenReturn(Pair(position, favouriteFlag))
+        Mockito.`when`(useCase.toggleFavourite(movieRow)).thenReturn(Pair(position, favouriteFlag))
 
         val mockLiveData = Mockito.mock(MutableLiveData::class.java) as MutableLiveData<CallResult<Pair<Int, Boolean>>>
 
@@ -74,7 +71,7 @@ class MovieViewModelTest {
         )
         Assert.assertNotNull(underTest)
 
-        val liveData = underTest.toggleFavourite(context, movieRow)
+        val liveData = underTest.toggleFavourite(movieRow)
         Assert.assertEquals(mockLiveData, liveData)
         Mockito.verify(mockLiveData).setValue(Mockito.argThat(MovieToggleArgumentMatcher(position, favouriteFlag)))
     }
