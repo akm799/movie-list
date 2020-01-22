@@ -39,7 +39,15 @@ abstract class LastItemAdapter<VH: RecyclerView.ViewHolder>() : RecyclerView.Ada
         }
     }
 
+    final override fun onBindViewHolder(holder: VH, position: Int, payloads: MutableList<Any>) {
+        if (isLastItem(position).not()) {
+            onBindItemViewHolder(holder, position, payloads)
+        }
+    }
+
     private fun isLastItem(position: Int): Boolean = (position == itemCount - 1)
 
     abstract fun onBindItemViewHolder(holder: VH, position: Int)
+
+    abstract fun onBindItemViewHolder(holder: VH, position: Int, payloads: MutableList<Any>)
 }
