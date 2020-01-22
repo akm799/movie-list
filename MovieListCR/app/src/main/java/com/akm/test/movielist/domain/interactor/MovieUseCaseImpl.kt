@@ -4,7 +4,6 @@ import com.akm.test.movielist.data.cache.MovieCache
 import com.akm.test.movielist.data.cache.MovieCacheFactory
 import com.akm.test.movielist.data.repository.MovieRepository
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 
 class MovieUseCaseImpl(
     private val repository: MovieRepository,
@@ -42,7 +41,7 @@ class MovieUseCaseImpl(
         return repository.getMovies(page).also { cache.cacheMovies(page, it) }
     }
 
-    override suspend fun toggleFavourite(movieRow: MovieRow): Pair<Int, Boolean> {
-        return factory.movieCache().toggleFavourite(movieRow)
+    override suspend fun toggleFavourite(movie: Movie): Pair<Int, Boolean> {
+        return factory.movieCache().toggleFavourite(movie)
     }
 }

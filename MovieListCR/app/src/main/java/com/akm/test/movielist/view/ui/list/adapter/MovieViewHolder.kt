@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.akm.test.movielist.R
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import com.akm.test.movielist.view.processor.MovieProcessor
 import com.akm.test.movielist.view.ui.widget.PercentageView
 import java.text.SimpleDateFormat
@@ -20,13 +19,13 @@ class MovieViewHolder(view: View, private val movieProcessor: MovieProcessor) : 
         const val PERCENTAGE_ANIMATION_MILLIS = 350L
     }
 
-    fun bindMovie(movie: Movie, position: Int) {
+    fun bindMovie(movie: Movie) {
         bindPosterImage(movie)
         bindValues(movie)
-        bindListeners(movie, position)
+        bindListeners(movie)
     }
 
-    fun bindMovieFavouriteFlag(movie: Movie, position: Int) {
+    fun bindMovieFavouriteFlag(movie: Movie) {
         itemView.findViewById<CheckBox>(R.id.favourite).isChecked = movie.favourite
     }
 
@@ -60,9 +59,9 @@ class MovieViewHolder(view: View, private val movieProcessor: MovieProcessor) : 
         }
     }
 
-    private fun bindListeners(movie: Movie, position: Int) {
+    private fun bindListeners(movie: Movie) {
         itemView.findViewById<CheckBox>(R.id.favourite).setOnClickListener {
-            movieProcessor.toggleFavourite(MovieRow(movie, position)) // No business logic here. Delegate it to the processor.
+            movieProcessor.toggleFavourite(movie) // No business logic here. Delegate it to the processor.
         }
     }
 

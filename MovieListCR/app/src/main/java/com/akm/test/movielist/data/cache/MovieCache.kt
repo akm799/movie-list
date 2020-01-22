@@ -1,7 +1,6 @@
 package com.akm.test.movielist.data.cache
 
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 
 interface MovieCache {
 
@@ -15,8 +14,8 @@ interface MovieCache {
 
     /**
      * Returns the new favourite Boolean value of the item we updated plus the item position within
-     * our list. The position is returned so the item can be located in the list faster (to set the
-     * updated value).
+     * our list. The movie ID is returned so the item can be located in the list (to set the updated
+     * value).
      */
-    suspend fun toggleFavourite(movieRow: MovieRow): Pair<Int, Boolean>
+    suspend fun toggleFavourite(movie: Movie): Pair<Int, Boolean>
 }

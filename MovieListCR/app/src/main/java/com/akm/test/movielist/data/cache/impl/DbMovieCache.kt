@@ -4,7 +4,6 @@ import com.akm.test.movielist.data.cache.MovieCache
 import com.akm.test.movielist.data.cache.db.MovieDatabase
 import com.akm.test.movielist.data.cache.db.MovieEntry
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import java.util.*
 
 class DbMovieCache(private val db: MovieDatabase) : MovieCache {
@@ -23,9 +22,7 @@ class DbMovieCache(private val db: MovieDatabase) : MovieCache {
         db.movieDao().insertMovies(entries)
     }
 
-    override suspend fun toggleFavourite(movieRow: MovieRow): Pair<Int, Boolean> {
-        val movie = movieRow.movie
-
+    override suspend fun toggleFavourite(movie: Movie): Pair<Int, Boolean> {
         val updateCount = db.movieDao().updateFavourite(movie.id, movie.favourite.not())
         if (updateCount != 1) {
             throw Exception("DB Error: favourite not updated for movie with ID ${movie.id}")
@@ -33,7 +30,7 @@ class DbMovieCache(private val db: MovieDatabase) : MovieCache {
 
         val newFavourite = db.movieDao().getFavourite(movie.id)
 
-        return Pair(movieRow.index, newFavourite)
+        return Pair(movie.id, newFavourite)
     }
 
     private fun MovieEntry.toMovie(): Movie {

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.akm.test.movielist.domain.interactor.MovieUseCase
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import com.akm.test.movielist.view.viewmodel.util.CallResult
 import com.akm.test.movielist.view.viewmodel.util.providers.DefaultDispatcherProvider
 import com.akm.test.movielist.view.viewmodel.util.providers.DefaultLiveDataProvider
@@ -36,9 +35,9 @@ class MovieViewModel(
         }
     }
 
-    fun toggleFavourite(movieRow: MovieRow): LiveData<CallResult<Pair<Int, Boolean>>> {
+    fun toggleFavourite(movie: Movie): LiveData<CallResult<Pair<Int, Boolean>>> {
         return liveData {
-            ioThread { useCase.toggleFavourite(movieRow) }
+            ioThread { useCase.toggleFavourite(movie) }
         }
     }
 

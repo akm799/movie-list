@@ -72,12 +72,13 @@ class MovieProcessorImplTest {
         Assert.assertTrue(underTest.movies.none { it.favourite })
 
         val favouriteIndex = 1
-        val change = Pair(favouriteIndex, true)
+        val favouriteId = movies[favouriteIndex].id
+        val change = Pair(favouriteId, true)
         underTest.onFavouriteChanged(change)
         Assert.assertEquals(movies.size, underTest.movies.size)
         Assert.assertEquals(movies.size - 1, underTest.movies.count { it.favourite })
         Assert.assertEquals(change.second, underTest.movies[favouriteIndex].favourite)
 
-        Mockito.verify(view).onFavouriteChanged(favouriteIndex, 1)
+        Mockito.verify(view).onFavouriteChanged(favouriteId, 1)
     }
 }

@@ -1,7 +1,6 @@
 package com.akm.test.movielist.view.processor
 
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import com.akm.test.movielist.view.MovieView
 
 /**
@@ -13,6 +12,8 @@ interface MovieProcessor {
 
     val movies: List<Movie>
 
+    fun getMoviePosition(id: Int): Int
+
     fun attachView(view: MovieView)
 
     fun onMoviesReadOrFetched(movies: List<Movie>)
@@ -23,7 +24,7 @@ interface MovieProcessor {
 
     fun onMoreMoviesFetchedError(error: Throwable)
 
-    fun toggleFavourite(movieRow: MovieRow)
+    fun toggleFavourite(movie: Movie)
 
     fun onFavouriteChanged(change: Pair<Int, Boolean>)
 

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.akm.test.movielist.domain.model.MovieRow
+import com.akm.test.movielist.domain.model.Movie
 import com.akm.test.movielist.view.MovieView
 import com.akm.test.movielist.view.error.buildErrorMessage
 import com.akm.test.movielist.view.observer.MovieObserver
@@ -88,12 +88,12 @@ class MainActivity : AppCompatActivity(), MovieView, ListEndListener {
         observer.fetchMoreMovies()
     }
 
-    override fun toggleFavourite(movieRow: MovieRow) {
-        observer.toggleFavourite(movieRow)
+    override fun toggleFavourite(movie: Movie) {
+        observer.toggleFavourite(movie)
     }
 
-    override fun onFavouriteChanged(position: Int, numberOfFavourites: Int) {
-        (movieList.adapter as MovieAdapter).notifyFavouriteToggled(position)
+    override fun onFavouriteChanged(id: Int, numberOfFavourites: Int) {
+        (movieList.adapter as MovieAdapter).notifyFavouriteToggled(id)
         setNumberOfFavouritesText(numberOfFavourites)
     }
 

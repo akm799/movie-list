@@ -37,10 +37,12 @@ class MovieAdapter(private val movieProcessor: MovieProcessor) : LastItemAdapter
     }
 
     override fun onBindItemViewHolder(holder: MovieViewHolder, position: Int, payloads: MutableList<Any>) {
+        val movie = movieProcessor.movies[position]
+
         if (onlyFavouriteFlagHasChanged(payloads)) {
-            holder.bindMovieFavouriteFlag(movieProcessor.movies[position], position)
+            holder.bindMovieFavouriteFlag(movie)
         } else {
-            holder.bindMovie(movieProcessor.movies[position], position)
+            holder.bindMovie(movie)
         }
     }
 
@@ -48,7 +50,8 @@ class MovieAdapter(private val movieProcessor: MovieProcessor) : LastItemAdapter
         return payloads.contains(FAVOURITE_TOGGLE_FLAG)
     }
 
-    fun notifyFavouriteToggled(position: Int) {
+    fun notifyFavouriteToggled(id: Int) {
+        val position = movieProcessor.getMoviePosition(id)
         notifyItemChanged(position, FAVOURITE_TOGGLE_FLAG)
     }
 }
