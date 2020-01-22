@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), MovieView, ListEndListener {
     }
 
     override fun onFavouriteChanged(id: Int, numberOfFavourites: Int) {
-        (movieList.adapter as MovieAdapter).notifyMovieFavouriteFlagChanged(id)
+        (movieList.adapter as MovieAdapter).notifyFavouriteToggled(id)
         setNumberOfFavouritesText(numberOfFavourites)
     }
 

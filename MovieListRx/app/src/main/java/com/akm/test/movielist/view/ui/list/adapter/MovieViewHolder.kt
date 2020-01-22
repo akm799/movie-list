@@ -25,6 +25,10 @@ class MovieViewHolder(view: View, private val movieProcessor: MovieProcessor) : 
         bindListeners(movie)
     }
 
+    fun bindMovieFavouriteFlag(movie: Movie) {
+        itemView.findViewById<CheckBox>(R.id.favourite).isChecked = movie.favourite
+    }
+
     private fun bindPosterImage(movie: Movie) {
         Glide.with(itemView)
             .load(movie.posterImageUrl)

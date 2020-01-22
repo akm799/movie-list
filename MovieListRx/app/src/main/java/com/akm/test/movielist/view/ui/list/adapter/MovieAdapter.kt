@@ -11,6 +11,10 @@ import com.akm.test.movielist.view.ui.list.adapter.helper.LastItemAdapter
  * the processor.
  */
 class MovieAdapter(private val movieProcessor: MovieProcessor) : LastItemAdapter<MovieViewHolder>() {
+    private companion object {
+        val NO_PAYLOAD = ArrayList<Any>(0)
+        const val FAVOURITE_TOGGLE_FLAG = "favourite_toggled"
+    }
 
     override fun onCreateItemViewHolder(parent: ViewGroup): MovieViewHolder {
         return buildMovieViewHolder(parent, R.layout.item_movie)
@@ -29,11 +33,25 @@ class MovieAdapter(private val movieProcessor: MovieProcessor) : LastItemAdapter
     override fun getNonLastItemCount(): Int = movieProcessor.movies.size
 
     override fun onBindItemViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindMovie(movieProcessor.movies[position])
+        onBindItemViewHolder(holder, position, NO_PAYLOAD)
     }
 
-    fun notifyMovieFavouriteFlagChanged(id: Int) {
+    override fun onBindItemViewHolder(holder: MovieViewHolder, position: Int, payloads: MutableList<Any>) {
+        val movie = movieProcessor.movies[position]
+
+        if (onlyFavouriteFlagHasChanged(payloads)) {
+            holder.bindMovieFavouriteFlag(movie)
+        } else {
+            holder.bindMovie(movie)
+        }
+    }
+
+    private fun onlyFavouriteFlagHasChanged(payloads: MutableList<Any>): Boolean {
+        return payloads.contains(FAVOURITE_TOGGLE_FLAG)
+    }
+
+    fun notifyFavouriteToggled(id: Int) {
         val position = movieProcessor.getMoviePosition(id)
-        notifyItemChanged(position)
+        notifyItemChanged(position, FAVOURITE_TOGGLE_FLAG)
     }
 }
