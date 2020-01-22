@@ -29,6 +29,11 @@ class MovieAdapter(private val movieProcessor: MovieProcessor) : LastItemAdapter
     override fun getNonLastItemCount(): Int = movieProcessor.movies.size
 
     override fun onBindItemViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindMovie(movieProcessor.movies[position], position)
+        holder.bindMovie(movieProcessor.movies[position])
+    }
+
+    fun notifyMovieFavouriteFlagChanged(id: Int) {
+        val position = movieProcessor.getMoviePosition(id)
+        notifyItemChanged(position)
     }
 }

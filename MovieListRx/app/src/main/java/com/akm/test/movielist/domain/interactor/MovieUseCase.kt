@@ -1,7 +1,6 @@
 package com.akm.test.movielist.domain.interactor
 
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import io.reactivex.Single
 
 interface MovieUseCase {
@@ -12,8 +11,8 @@ interface MovieUseCase {
 
     /**
      * Returns the new favourite Boolean value of the item we updated plus the item position within
-     * our list. The position is returned so the item can be located in the list faster (to set the
-     * updated value).
+     * our list. The movie ID is returned so the item can be located in the list (to set the updated
+     * value).
      */
-    fun toggleFavourite(movieRow: MovieRow): Single<Pair<Int, Boolean>>
+    fun toggleFavourite(movie: Movie): Single<Pair<Int, Boolean>>
 }

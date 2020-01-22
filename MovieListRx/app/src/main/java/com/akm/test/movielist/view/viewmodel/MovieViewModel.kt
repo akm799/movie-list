@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.akm.test.movielist.domain.interactor.MovieUseCase
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import com.akm.test.movielist.view.viewmodel.util.CallResult
 import com.akm.test.movielist.view.viewmodel.util.providers.DefaultSchedulerProvider
 import com.akm.test.movielist.view.viewmodel.util.providers.SchedulerProvider
@@ -32,8 +31,8 @@ class MovieViewModel(
         return liveData { useCase.fetchMoreMovies() }
     }
 
-    fun toggleFavourite(movieRow: MovieRow): LiveData<CallResult<Pair<Int, Boolean>>> {
-        return liveData { useCase.toggleFavourite(movieRow) }
+    fun toggleFavourite(movie: Movie): LiveData<CallResult<Pair<Int, Boolean>>> {
+        return liveData { useCase.toggleFavourite(movie) }
     }
 
     private fun <T> liveData(getData: () -> Single<T>): LiveData<CallResult<T>> {

@@ -4,7 +4,6 @@ import com.akm.test.movielist.data.cache.MovieCache
 import com.akm.test.movielist.data.cache.db.MovieDatabase
 import com.akm.test.movielist.data.cache.db.MovieEntry
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import io.reactivex.Single
 import java.util.*
 
@@ -24,9 +23,7 @@ class DbMovieCache(private val db: MovieDatabase) : MovieCache {
         db.movieDao().insertMovies(entries)
     }
 
-    override fun toggleFavourite(movieRow: MovieRow): Single<Pair<Int, Boolean>> {
-        val movie = movieRow.movie
-
+    override fun toggleFavourite(movie: Movie): Single<Pair<Int, Boolean>> {
         val changeFavourite: (Int, Boolean) -> Single<Int> = { id, value ->
             db.movieDao().updateFavourite(id, value)
         }
@@ -36,7 +33,7 @@ class DbMovieCache(private val db: MovieDatabase) : MovieCache {
         }
 
         val toResult: (Boolean) -> Single<Pair<Int, Boolean>> = { favourite ->
-            Single.just(Pair(movieRow.index, favourite))
+            Single.just(Pair(movie.id, favourite))
         }
 
         return changeFavourite.invoke(movie.id, movie.favourite.not()).flatMap(getFavourite).flatMap(toResult)

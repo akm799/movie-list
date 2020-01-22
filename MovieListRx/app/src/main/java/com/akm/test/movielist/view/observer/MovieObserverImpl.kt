@@ -3,7 +3,6 @@ package com.akm.test.movielist.view.observer
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import com.akm.test.movielist.view.observer.specific.BaseMovieObserver
 import com.akm.test.movielist.view.processor.MovieProcessor
 import com.akm.test.movielist.view.viewmodel.MovieViewModel
@@ -35,7 +34,7 @@ class MovieObserverImpl(
         viewModel.fetchMoreMovies().observe(owner, moreMoviesObserver)
     }
 
-    override fun toggleFavourite(movieRow: MovieRow) {
-        viewModel.toggleFavourite(movieRow).observe(owner, toggleFavouriteObserver)
+    override fun toggleFavourite(movie: Movie) {
+        viewModel.toggleFavourite(movie).observe(owner, toggleFavouriteObserver)
     }
 }

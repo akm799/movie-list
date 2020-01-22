@@ -1,6 +1,6 @@
 package com.akm.test.movielist.view.observer
 
-import com.akm.test.movielist.domain.model.MovieRow
+import com.akm.test.movielist.domain.model.Movie
 
 interface MovieObserver {
 
@@ -8,5 +8,5 @@ interface MovieObserver {
 
     fun fetchMoreMovies()
 
-    fun toggleFavourite(movieRow: MovieRow)
+    fun toggleFavourite(movie: Movie)
 }

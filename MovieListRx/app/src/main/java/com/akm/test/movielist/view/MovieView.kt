@@ -1,6 +1,6 @@
 package com.akm.test.movielist.view
 
-import com.akm.test.movielist.domain.model.MovieRow
+import com.akm.test.movielist.domain.model.Movie
 
 interface MovieView {
 
@@ -12,9 +12,9 @@ interface MovieView {
 
     fun moviesAddedError(error: Throwable)
 
-    fun toggleFavourite(movieRow: MovieRow)
+    fun toggleFavourite(movie: Movie)
 
-    fun onFavouriteChanged(position: Int, numberOfFavourites: Int)
+    fun onFavouriteChanged(id: Int, numberOfFavourites: Int)
 
     fun onFavouriteChangedError(error: Throwable)
 }

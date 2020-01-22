@@ -4,7 +4,6 @@ import com.akm.test.movielist.data.cache.MovieCache
 import com.akm.test.movielist.data.cache.MovieCacheFactory
 import com.akm.test.movielist.data.repository.MovieRepository
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import io.reactivex.Single
 
 class MovieUseCaseImpl(
@@ -57,7 +56,7 @@ class MovieUseCaseImpl(
         }
     }
 
-    override fun toggleFavourite(movieRow: MovieRow): Single<Pair<Int, Boolean>> {
-        return factory.movieCache().toggleFavourite(movieRow)
+    override fun toggleFavourite(movie: Movie): Single<Pair<Int, Boolean>> {
+        return factory.movieCache().toggleFavourite(movie)
     }
 }

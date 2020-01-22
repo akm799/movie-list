@@ -1,7 +1,6 @@
 package com.akm.test.movielist.view.processor
 
 import com.akm.test.movielist.domain.model.Movie
-import com.akm.test.movielist.domain.model.MovieRow
 import com.akm.test.movielist.view.MovieView
 
 class MovieProcessorImpl : MovieProcessor {
@@ -10,6 +9,16 @@ class MovieProcessorImpl : MovieProcessor {
 
     override val movies: List<Movie>
         get() = movieList
+
+    override fun getMoviePosition(id: Int): Int {
+        movieList.forEachIndexed { index, movie ->
+            if (movie.id == id) {
+                return index
+            }
+        }
+
+        throw IllegalArgumentException("Unknown ID parameter: $id")
+    }
 
     override fun attachView(view: MovieView) {
         this.view = view
@@ -38,16 +47,20 @@ class MovieProcessorImpl : MovieProcessor {
         view?.moviesAddedError(error)
     }
 
-    override fun toggleFavourite(movieRow: MovieRow) {
-        view?.toggleFavourite(movieRow)
+    override fun toggleFavourite(movie: Movie) {
+        view?.toggleFavourite(movie)
     }
 
     override fun onFavouriteChanged(change: Pair<Int, Boolean>) {
-        val position = change.first
-        movieList[position].favourite = change.second
+        val id = change.first
+        findMovieById(id).favourite = change.second
         val numberOfFavourites = findNumberOfFavourites()
 
-        view?.onFavouriteChanged(position, numberOfFavourites)
+        view?.onFavouriteChanged(id, numberOfFavourites)
+    }
+
+    private fun findMovieById(id: Int): Movie {
+        return movieList.firstOrNull { it.id == id } ?: throw IllegalArgumentException("Unknown ID parameter: $id")
     }
 
     override fun onFavouriteChangedError(error: Throwable) {
